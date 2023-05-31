@@ -7,7 +7,7 @@ import (
 )
 
 func Init() {
-	envs := []string{"PORT", "GITURL"}
+	envs := []string{"GITURL"}
 
 	for _, v := range envs {
 		if os.Getenv(v) == "" {
@@ -15,7 +15,7 @@ func Init() {
 		}
 	}
 
-	optEnvs := map[string]string{"FETCH_INTERVAL": "300"}
+	optEnvs := map[string]string{"FETCH_INTERVAL": "300", "PORT": "5555"}
 
 	for k, v := range optEnvs {
 		if os.Getenv(k) == "" {
