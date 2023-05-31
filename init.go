@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 )
@@ -11,11 +10,15 @@ func Init() {
 
 	for _, v := range envs {
 		if os.Getenv(v) == "" {
-			log.Fatal(fmt.Sprintf("%s not set but required", v))
+			log.Fatalf("%s not set but required", v)
 		}
 	}
 
-	optEnvs := map[string]string{"FETCH_INTERVAL": "300", "PORT": "5555"}
+	optEnvs := map[string]string{
+		"FETCH_INTERVAL":    "300",
+		"PORT":              "5555",
+		"GIT_REPO_LOCATION": "./repo",
+	}
 
 	for k, v := range optEnvs {
 		if os.Getenv(k) == "" {
