@@ -6,6 +6,7 @@ import (
 )
 
 func Init() {
+	// Check for and initialize environment variables
 	envs := []string{"GITURL"}
 
 	for _, v := range envs {
@@ -18,6 +19,7 @@ func Init() {
 		"FETCH_INTERVAL":    "300",
 		"PORT":              "5555",
 		"GIT_REPO_LOCATION": "./repo",
+		"LOG_FILE_LOCATION": "./RepoWiki.log",
 	}
 
 	for k, v := range optEnvs {

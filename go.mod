@@ -2,7 +2,9 @@ module RepoWiki
 
 go 1.20
 
-require github.com/go-git/go-git/v5 v5.7.0
+require (
+	github.com/go-git/go-git/v5 v5.7.0
+)
 
 require (
 	github.com/Microsoft/go-winio v0.5.2 // indirect
