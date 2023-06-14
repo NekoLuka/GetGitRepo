@@ -20,6 +20,7 @@ func Init() {
 		"PORT":              "5555",
 		"GIT_REPO_LOCATION": "./repo",
 		"LOG_FILE_LOCATION": "./RepoWiki.log",
+		"LOG_LEVEL":         "1",
 	}
 
 	for k, v := range optEnvs {

@@ -19,26 +19,26 @@ func (wg *WikiGit) Init() {
 
 	if _, err := os.Stat(wg.RepoLocation); os.IsNotExist(err) {
 		if err := os.MkdirAll(wg.RepoLocation, 0644); err != nil {
-			logger.Error.Fatal(err)
+			logger.Error(err, true)
 		}
 
 		repo, err := git.PlainClone(wg.RepoLocation, false, &git.CloneOptions{
 			URL: os.Getenv("GITURL"),
 		})
 		if err != nil {
-			logger.Error.Fatal(err)
+			logger.Error(err, true)
 		}
 
 		wg.Repo = repo
-		logger.Info.Println("Successfully cloned repo")
+		logger.Info("Successfully cloned repo")
 	} else {
 		repo, err := git.PlainOpen(wg.RepoLocation)
 		if err != nil {
-			logger.Error.Fatal(err)
+			logger.Error(err, true)
 		}
 
 		wg.Repo = repo
-		logger.Info.Println("Successfully opened repo")
+		logger.Info("Successfully opened repo")
 	}
 }
 
@@ -48,26 +48,26 @@ func (wg *WikiGit) FetchAndPull() {
 	switch err := wg.Repo.Fetch(&git.FetchOptions{}); err {
 	case nil:
 	case git.NoErrAlreadyUpToDate:
-		logger.Info.Println("No new data to be fetched")
+		logger.Info("No new data to be fetched")
 		return
 	default:
-		logger.Error.Println(err)
+		logger.Warning(err)
 		return
 	}
 
 	tree, err := wg.Repo.Worktree()
 	if err != nil {
-		logger.Error.Println(err)
+		logger.Warning(err)
 		return
 	}
 
 	switch err = tree.Pull(&git.PullOptions{}); err {
 	case nil:
-		logger.Info.Println("Pull completed successfully")
+		logger.Info("Pull completed successfully")
 	case git.NoErrAlreadyUpToDate:
-		logger.Info.Println("No new data to pull")
+		logger.Info("No new data to pull")
 	default:
-		logger.Error.Println(err)
+		logger.Warning(err)
 	}
 }
 
