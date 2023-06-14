@@ -7,9 +7,9 @@ import (
 )
 
 type Log struct {
-	Info    *log.Logger
-	Warning *log.Logger
-	Error   *log.Logger
+	info    *log.Logger
+	warning *log.Logger
+	error   *log.Logger
 }
 
 func (l *Log) init() {
@@ -20,9 +20,21 @@ func (l *Log) init() {
 
 	mw := io.MultiWriter(os.Stdout, file)
 
-	l.Info = log.New(mw, "INFO: ", log.Ldate|log.Ltime|log.Llongfile)
-	l.Warning = log.New(mw, "WARNING: ", log.Ldate|log.Ltime|log.Llongfile)
-	l.Error = log.New(mw, "ERROR: ", log.Ldate|log.Ltime|log.Llongfile)
+	l.info = log.New(mw, "INFO: ", log.Ldate|log.Ltime|log.Llongfile)
+	l.warning = log.New(mw, "WARNING: ", log.Ldate|log.Ltime|log.Llongfile)
+	l.error = log.New(mw, "ERROR: ", log.Ldate|log.Ltime|log.Llongfile)
+}
+
+func (l *Log) Info(message string) {
+	l.info.Println(message)
+}
+
+func (l *Log) Warning(message string) {
+	l.warning.Println(message)
+}
+
+func (l *Log) Error(message string) {
+	l.error.Println(message)
 }
 
 func GetLogger() Log {
