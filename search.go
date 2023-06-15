@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"crypto/rand"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -80,13 +81,15 @@ func (s *Search) search(searchQuery []byte) []Snippet {
 		// Loop through the file while saving the location of matches
 		snippet := Snippet{FilePath: v, MatchLength: len(searchQuery)}
 		index := 0
+		replacement := make([]byte, len(searchQuery))
+		_, _ = rand.Read(replacement)
 		for true {
 			index = bytes.Index(data, searchQuery)
 			if index == -1 {
 				break
 			}
 			snippet.Matches = append(snippet.Matches, index)
-			data = data[index+1:]
+			data = bytes.Replace(data, searchQuery, replacement, 1)
 		}
 
 		snippets = append(snippets, snippet)
