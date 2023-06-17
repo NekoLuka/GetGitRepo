@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  raneto:
+    image: lscr.io/linuxserver/raneto:latest
+    ports:
+      - 3000:3000
+    volumes:
+      - raneto:/config
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+        window: 60s
+  repoWiki:
+    image: repowiki
+    volumes:
+      - raneto:/config
+    environment:
+      - GITURL=https://github.com/NekoLuka/RepoWiki-file-layout.git
+      - GIT_REPO_LOCATION=/config
+      - LOG_LEVEL=2
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+        window: 60s
+
+volumes:
+  raneto:
+

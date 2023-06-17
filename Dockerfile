@@ -1,10 +1,11 @@
-FROM lscr.io/linuxserver/raneto:latest
+FROM golang:alpine3.18
+
 LABEL authors="NekoLuka"
 
-COPY --from=golang:alpine3.18 /usr/local/go /usr/local/go
 ENV PATH="/usr/local/go/bin:${PATH}"
 
 WORKDIR /repowiki
 COPY ./ /repowiki
+RUN mkdir bin && go build -o bin/repowiki .
 
-ENTRYPOINT go run .
+CMD /repowiki/bin/repowiki
