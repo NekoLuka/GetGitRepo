@@ -17,7 +17,6 @@ func Init() {
 
 	optEnvs := map[string]string{
 		"FETCH_INTERVAL":    "300",
-		"PORT":              "5555",
 		"GIT_REPO_LOCATION": "./repo",
 		"LOG_FILE_LOCATION": "./RepoWiki.log",
 		"LOG_LEVEL":         "1",
