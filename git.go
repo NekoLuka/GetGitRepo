@@ -17,7 +17,7 @@ func (wg *WikiGit) Init() {
 
 	wg.RepoLocation = os.Getenv("GIT_REPO_LOCATION")
 
-	if _, err := os.Stat(wg.RepoLocation); os.IsNotExist(err) {
+	if _, err := os.Stat(wg.RepoLocation + "/.git"); os.IsNotExist(err) {
 		if err := os.MkdirAll(wg.RepoLocation, 0644); err != nil {
 			logger.Error(err, true)
 		}
